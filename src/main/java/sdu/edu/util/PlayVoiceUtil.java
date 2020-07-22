@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 public class PlayVoiceUtil {
 
-    public static void play(String fileName) {
-        String playerCmd = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
-        List<String> command = Arrays.asList(playerCmd, fileName);
+    public static void play(String playerExecPath, String fileName) {
+        List<String> command = Arrays.asList(playerExecPath, fileName);
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         processBuilder.redirectErrorStream(true);
         try {
