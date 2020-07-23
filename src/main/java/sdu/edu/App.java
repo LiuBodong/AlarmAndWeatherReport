@@ -10,6 +10,7 @@ import java.time.temporal.TemporalField;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class App {
 
@@ -39,21 +40,39 @@ public class App {
     private static final String settingFile = properties.getProperty("setting_file");
     private static final Tuple2<List<ScheduleUtil.NoDisturbTime>, Map<Integer, String>> information = ScheduleUtil.getDailyInformation(settingFile);
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(nextScheduleInterval() / 1000 / 60 / 60);
-//        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-//        service.schedule();
-//
-//        String now = nowTimeGreeting();
-//        WeatherForecast weatherForecast = new WeatherForecast("101120512");
-//        Weather weather = weatherForecast.getCurrentWeatherReport();
-//        play(weather.toString());
-//        List<String> types = Arrays.asList("穿衣指数", "紫外线指数", "化妆指数", "晾晒指数", "防晒指数");
-//        Map<String, Indices> idxs = weatherForecast.getCurrentIndices();
-//        for (String type : types) {
-//            play(idxs.get(type).toString());
-//        }
+    private static final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 
+    public static void main(String[] args) throws Exception {
+        schedule();
+    }
+
+    private static void schedule() {
+        long nextInterval = nextScheduleInterval();
+        long minutes = nextInterval / 1000 / 60;
+        long hour = minutes / 60;
+        minutes = minutes % 60;
+        System.out.println("下次调用在：" + hour + "小时" + minutes + "分钟后～");
+        service.schedule(() -> {
+            try {
+                run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, nextInterval, TimeUnit.MILLISECONDS);
+    }
+
+    private static void run() throws Exception {
+        String nowGreeting = nowTimeGreeting();
+        play(nowGreeting);
+        WeatherForecast weatherForecast = new WeatherForecast("101120512");
+        Weather weather = weatherForecast.getCurrentWeatherReport();
+        play(weather.toString());
+        List<String> types = Arrays.asList("穿衣指数", "紫外线指数", "化妆指数", "晾晒指数", "防晒指数");
+        Map<String, Indices> idxs = weatherForecast.getCurrentIndices();
+        for (String type : types) {
+            play(idxs.get(type).toString());
+        }
+        schedule();
     }
 
     private static long nextScheduleInterval() {
