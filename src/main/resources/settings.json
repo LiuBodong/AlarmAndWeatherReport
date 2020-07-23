@@ -1,0 +1,20 @@
+{
+  "daily": {
+    "no_disturb_time": [
+      {
+        "start": 15,
+        "end": 8
+      },
+      {
+        "start": 12,
+        "end": 15
+      }
+    ],
+    "greetings": [
+      {
+        "hour": 8,
+        "text": "早上好"
+      }
+    ]
+  }
+}

@@ -4,20 +4,9 @@ import java.util.HashMap;
 
 public class Int2Zh {
 
-    public static final HashMap<Integer, String> nums = new HashMap<>();
-
-    static {
-        nums.put(0, "零");
-        nums.put(1, "一");
-        nums.put(2, "二");
-        nums.put(3, "三");
-        nums.put(4, "四");
-        nums.put(5, "五");
-        nums.put(6, "六");
-        nums.put(7, "七");
-        nums.put(8, "八");
-        nums.put(9, "九");
-    }
+    public static final String[] nums = new String[]{
+            "零", "一", "二", "三", "四", "五", "六", "七", "八", "九"
+    };
 
     public static final HashMap<Integer, String> ratios = new HashMap<>();
 
@@ -47,10 +36,10 @@ public class Int2Zh {
                 sb.append(ratios.get(index));
             }
             if (tail != 0) {
-                sb.append(nums.get(tail));
+                sb.append(nums[tail]);
             } else {
                 if (sb.length() > 0 && sb.charAt(sb.length() - 1) != '零') {
-                    sb.append(nums.get(tail));
+                    sb.append(nums[tail]);
                 }
             }
             num = num / 10;
