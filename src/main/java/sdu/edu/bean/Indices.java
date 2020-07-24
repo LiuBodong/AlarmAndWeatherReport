@@ -1,4 +1,4 @@
-package sdu.edu;
+package sdu.edu.bean;
 
 public class Indices {
 

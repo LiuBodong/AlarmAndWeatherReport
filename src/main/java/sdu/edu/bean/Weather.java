@@ -1,15 +1,22 @@
-package sdu.edu;
+package sdu.edu.bean;
 
 import static sdu.edu.util.Int2Zh.int2Zh;
 
 public class Weather {
 
+    // 地区编号
     private String locationId;
+    // 地区名字
     private String location;
+    // 温度
     private int temp;
+    // 天气
     private String text;
+    // 风向
     private String windDir;
+    // 风力等级
     private int windScale;
+    // 湿度
     private int humidity;
 
     public Weather() {

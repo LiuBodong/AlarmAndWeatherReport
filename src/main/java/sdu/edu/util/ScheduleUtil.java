@@ -2,14 +2,20 @@ package sdu.edu.util;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import sdu.edu.bean.Tuple2;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
 public class ScheduleUtil {
 
+    /**
+     * 从settings.json中读取每日配置信息
+     *
+     * @param settingFile 配置文件名称
+     * @return {@link Tuple2}
+     */
     public static Tuple2<List<NoDisturbTime>, Map<Integer, String>> getDailyInformation(String settingFile) {
         List<NoDisturbTime> list = new ArrayList<>();
         Map<Integer, String> greetings = new HashMap<>();

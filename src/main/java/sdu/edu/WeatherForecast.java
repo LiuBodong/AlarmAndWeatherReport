@@ -5,10 +5,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import sdu.edu.bean.Indices;
+import sdu.edu.bean.Weather;
 import sdu.edu.util.PropertiesUtil;
 
 import java.util.*;
 
+/**
+ * 天气预报
+ */
 public class WeatherForecast {
 
     private final String locationId;

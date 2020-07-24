@@ -14,6 +14,9 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
 
+/*
+ *请求API，获取语音
+ */
 public class Speech {
 
     private final String apiUrl;
@@ -29,13 +32,14 @@ public class Speech {
 
     public String speech(String text, String per) {
         if (per == null) {
-            per = "6";
+            per = "6"; // 默认语调
         }
         if (text.getBytes().length >= 1024) {
             throw new IllegalArgumentException("Text is too large!");
         }
         text = text.trim().replaceAll(" ", "");
         String res = null;
+        // 发送GET请求
         String url = apiUrl + "?txt=" + text + "&per=" + per;
         System.out.println(url);
         Request request = new Request.Builder().get().url(url)
@@ -47,9 +51,11 @@ public class Speech {
             if (response.code() == 200) {
                 ResponseBody body = response.body();
                 assert body != null;
+                // 如果类型是application，说明出错
                 if (Objects.requireNonNull(body.contentType()).type().equals("application")) {
                     result = new JSONObject(body.string());
                 } else if (Objects.requireNonNull(body.contentType()).type().equals("audio")) {
+                    // 解析成功，获取数据
                     data = body.bytes();
                 }
             } else {
@@ -59,6 +65,7 @@ public class Speech {
             e.printStackTrace();
         }
         if (result == null && data != null) {
+            // 给文件一个随机名
             UUID uuid = UUID.randomUUID();
             String fileName = uuid.toString();
             try {
@@ -72,6 +79,7 @@ public class Speech {
                         throw new IllegalArgumentException(voiceDir + " 已经以文件形式存在，请删除~");
                     }
                 }
+                // 写入数据
                 File destFile = Paths.get(voiceDir, fileName).toFile();
                 FileOutputStream outputStream = new FileOutputStream(destFile);
                 outputStream.write(data);
@@ -79,6 +87,7 @@ public class Speech {
                 outputStream.close();
                 res = destFile.getPath();
             } catch (Exception e) {
+                // 出错则删除文件
                 e.printStackTrace();
                 File file = Paths.get(voiceDir, fileName).toFile();
                 if (file.exists()) {
@@ -88,6 +97,7 @@ public class Speech {
                 }
             }
         } else {
+            // 获取出错则打印出错结果
             if (result != null) {
                 System.out.println(result.toString(2));
             }

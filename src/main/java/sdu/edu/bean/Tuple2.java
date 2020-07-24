@@ -1,4 +1,4 @@
-package sdu.edu.util;
+package sdu.edu.bean;
 
 public class Tuple2<T1, T2> {
 

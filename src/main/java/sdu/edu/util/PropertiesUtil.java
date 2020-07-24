@@ -1,22 +1,8 @@
 package sdu.edu.util;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesUtil {
-
-    private final String filePath;
-    private final Properties properties;
-
-    public PropertiesUtil(String name) throws IOException {
-        if (name.endsWith(".properties")) {
-            this.filePath = name;
-        } else {
-            this.filePath = name + ".properties";
-        }
-        this.properties = new Properties();
-        properties.load(this.getClass().getClassLoader().getResourceAsStream(filePath));
-    }
 
     public static Properties load(String name) throws Exception {
         String path;
