@@ -79,7 +79,7 @@ url=https://devapi.heweather.net/v7/weather/now
 location_url=https://geoapi.heweather.net/v2/city/lookup
 # 生活指数API地址
 indices_url=https://devapi.heweather.net/v7/indices/1d
-# API KEY
+# API KEY 请务必自行申请APP KEY然后填写到下面
 key=aff0d0ec0ee4457ca4ba704e060a1e58
 # 语言
 lang=cn
