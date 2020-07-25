@@ -41,7 +41,6 @@ public class Speech {
         String res = null;
         // 发送GET请求
         String url = apiUrl + "?txt=" + text + "&per=" + per;
-        System.out.println(url);
         Request request = new Request.Builder().get().url(url)
                 .addHeader("Connection", "keep-alive")
                 .build();
