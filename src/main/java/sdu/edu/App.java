@@ -105,15 +105,15 @@ public class App {
         for (ScheduleUtil.NoDisturbTime noDisturbTime : information.f1()) {
             int start = noDisturbTime.getStartHour();
             int end = noDisturbTime.getEndHour();
-            // 如果开始时间大于结束时间，则说明跨天，则结束时间+24小时，天数+1
+            // 如果开始时间大于结束时间，则说明跨天，天数+1
             if (start > end) {
-                end += 24;
-                day += 1;
-            }
-            // 如果在勿扰时间之内，则跳转到勿扰时间结束
-            if (hour < end && hour > start) {
+                if ((hour > start && hour <= 24) || (hour >= 0 && hour < end)) {
+                    day += 1;
+                    hour = end;
+                }
+            } else if (hour < end && hour > start) {
                 // 如果跨天就需要除24取余
-                hour = end % 24;
+                hour = end;
             }
         }
         ZonedDateTime next = ZonedDateTime.of(now.getYear(), now.getMonthValue(),
